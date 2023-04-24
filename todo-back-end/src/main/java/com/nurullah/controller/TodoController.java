@@ -20,9 +20,9 @@ public class TodoController {
     public String addTodo(
             @RequestParam String description,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date deadline,
-            @RequestParam String status
+            @RequestParam boolean isCompleted
     ) {
-        todoService.saveTodo(description, deadline, status);
+        todoService.saveTodo(description, deadline, isCompleted);
         return "Todo created";
     }
 

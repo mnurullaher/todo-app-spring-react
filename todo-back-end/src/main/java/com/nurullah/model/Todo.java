@@ -28,6 +28,6 @@ public class Todo {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date deadline;
 
-    private String status;
+    private boolean isCompleted;
 
 }

@@ -1,3 +1,22 @@
 .App {
   text-align: center;
 }
+
+.add-task {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+input {
+  width: 200px;
+  height: 30px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  background-color: skyblue;
+  color: black;
+  border: none;
+  border-radius: 7px;
+}
+

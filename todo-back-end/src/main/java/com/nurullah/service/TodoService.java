@@ -13,12 +13,12 @@ public class TodoService {
     @Autowired
     private TodoRepository todoRepository;
 
-    public void saveTodo(String description, Date deadline, String status) {
+    public void saveTodo(String description, Date deadline, boolean isCompleted) {
 
         Todo newTodo = Todo.builder()
                 .description(description)
                 .deadline(deadline)
-                .status(status)
+                .isCompleted(isCompleted)
                 .build();
 
         todoRepository.save(newTodo);
