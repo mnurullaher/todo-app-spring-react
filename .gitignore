@@ -1,13 +1,13 @@
 # dependencies
-/todo-front-end/node_modules
-/todo-front-end/.pnp
+node_modules
+.pnp
 .pnp.js
 
 # testing
-/todo-front-end/coverage
+coverage
 
 # production
-/todo-front-end/build
+build
 
 # misc
 .DS_Store
@@ -21,8 +21,8 @@ yarn-debug.log*
 yarn-error.log*
 
 
-todo-back-end/HELP.md
-todo-back-end/target/
+HELP.md
+target
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -37,17 +37,17 @@ todo-back-end/target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-todo-back-end/.idea
+.idea
 *.iws
 *.iml
 *.ipr
 
 ### NetBeans ###
-/todo-back-end/nbproject/private/
-/todo-back-end/nbbuild/
-/todo-back-end/dist/
-/todo-back-end/nbdist/
-/todo-back-end/.nb-gradle/
-/todo-back-end/build/
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+build/
 !**/src/main/**/build/
 !**/src/test/**/build/
