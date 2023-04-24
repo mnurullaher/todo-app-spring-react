@@ -1,0 +1,53 @@
+# dependencies
+/todo-front-end/node_modules
+/todo-front-end/.pnp
+.pnp.js
+
+# testing
+/todo-front-end/coverage
+
+# production
+/todo-front-end/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+
+todo-back-end/HELP.md
+todo-back-end/target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+todo-back-end/.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+todo-back-end/nbproject/private/
+todo-back-end/nbbuild/
+todo-back-end/dist/
+todo-back-end/nbdist/
+todo-back-end/.nb-gradle/
+todo-back-end/build/
+!**/src/main/**/build/
+!**/src/test/**/build/
