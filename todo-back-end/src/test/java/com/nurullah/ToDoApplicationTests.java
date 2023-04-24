@@ -1,4 +1,4 @@
-package com.nurullah.ToDo;
+package com.nurullah;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

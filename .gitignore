@@ -43,11 +43,11 @@ todo-back-end/.idea
 *.ipr
 
 ### NetBeans ###
-todo-back-end/nbproject/private/
-todo-back-end/nbbuild/
-todo-back-end/dist/
-todo-back-end/nbdist/
-todo-back-end/.nb-gradle/
-todo-back-end/build/
+/todo-back-end/nbproject/private/
+/todo-back-end/nbbuild/
+/todo-back-end/dist/
+/todo-back-end/nbdist/
+/todo-back-end/.nb-gradle/
+/todo-back-end/build/
 !**/src/main/**/build/
 !**/src/test/**/build/
