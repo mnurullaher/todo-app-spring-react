@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 input {
@@ -20,3 +20,23 @@ input {
   border-radius: 7px;
 }
 
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.save-todo-button {
+  width: 50px;
+  height: 20px;
+  margin-left: 10px;
+  margin-top: 5px;
+  background-color: skyblue;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.save-todo-button:active {
+  background-color: black;
+  color: white;
+}

@@ -1,6 +1,7 @@
 package com.nurullah.controller;
 
 import com.nurullah.service.TodoService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -20,10 +21,14 @@ public class TodoController {
     public String addTodo(
             @RequestParam String description,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date deadline,
-            @RequestParam boolean isCompleted
+            @RequestParam boolean isCompleted,
+            HttpServletResponse response
     ) {
         todoService.saveTodo(description, deadline, isCompleted);
-        return "Todo created";
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        return """
+                {"message": "todo-created"}
+                """;
     }
 
 }
