@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import './App.css';
 import { TodoComp } from './components/TodoComp';
 
-interface Todo {
+export interface Todo {
   id: number,
   description: string,
   deadline: Date,
@@ -25,14 +25,14 @@ function App() {
   }
 
   const completeTodo = (id: number) => {
-    fetch(`http://localhost:8080/todos/update?id=${id}`, {
-      method: 'POST'
+    fetch(`http://localhost:8080/todos?id=${id}`, {
+      method: 'PUT'
     })
   };
 
   const removeTodo = (id: number) => {
-    fetch(`http://localhost:8080/todos/remove?id=${id}`, {
-      method: 'POST'
+    fetch(`http://localhost:8080/todos?id=${id}`, {
+      method: 'DELETE'
     })
   }
 
@@ -76,12 +76,9 @@ function App() {
           todoList.map((todo: Todo) => {
             return (
               < TodoComp
-                id={todo.id}
-                description={todo.description}
-                deadline={todo.deadline}
-                completed={todo.completed}
-                completeTask={() => completeTodo(todo.id)}
-                removeTask={() => removeTodo(todo.id)}
+                todo={todo}
+                completeTodo={completeTodo}
+                removeTodo={removeTodo}
               />
             )
           })
