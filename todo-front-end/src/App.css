@@ -36,7 +36,31 @@ input {
   cursor: pointer;
 }
 
-.save-todo-button:active {
+button:active {
   background-color: black;
   color: white;
+}
+
+.task {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+p {
+  margin: 20px;
+}
+
+.complete-btn {
+  background-color: lightgreen;
+  margin-right: 20px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.remove-btn {
+  background-color: red;
+  margin-right: 20px;
+  border-radius: 7px;
+  cursor: pointer;
 }
