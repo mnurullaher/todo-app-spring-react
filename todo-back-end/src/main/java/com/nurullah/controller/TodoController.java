@@ -20,17 +20,14 @@ public class TodoController {
     private TodoService todoService;
 
     @PostMapping("/todos")
-    public String addTodo(
+    public Todo addTodo(
             @RequestParam String description,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date deadline,
             @RequestParam boolean isCompleted,
             HttpServletResponse response
     ) {
-        todoService.saveTodo(description, deadline, isCompleted);
         response.addHeader("Access-Control-Allow-Origin", "*");
-        return """
-                {"message": "todo-created"}
-                """;
+        return todoService.saveTodo(description, deadline, isCompleted);
     }
 
     @GetMapping("/todos")

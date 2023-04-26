@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import './App.css';
 import { TodoComp } from './components/TodoComp';
 
-export interface Todo {
+interface Todo {
   id: number,
   description: string,
   deadline: Date,
@@ -40,9 +40,6 @@ function App() {
     fetch(`http://localhost:8080/todos?description=${description}&isCompleted=${isCompleted}&deadline=${deadline}`, {
       method: 'POST'
     })
-      .then(response => response.json())
-      .then(data => console.log(data.message))
-      .catch(error => console.error(error));
   }
 
   const getTodos = async () => {

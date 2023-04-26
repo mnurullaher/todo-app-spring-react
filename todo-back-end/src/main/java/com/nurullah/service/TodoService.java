@@ -15,7 +15,7 @@ public class TodoService {
     @Autowired
     private TodoRepository todoRepository;
 
-    public void saveTodo(String description, Date deadline, boolean isCompleted) {
+    public Todo saveTodo(String description, Date deadline, boolean isCompleted) {
 
         Todo newTodo = Todo.builder()
                 .description(description)
@@ -23,7 +23,7 @@ public class TodoService {
                 .isCompleted(isCompleted)
                 .build();
 
-        todoRepository.save(newTodo);
+        return todoRepository.save(newTodo);
     }
 
     public List<Todo> getAllTodos() {

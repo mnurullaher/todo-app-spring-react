@@ -12,9 +12,8 @@ export const TodoComp = (props: TodoProps) => {
         <div className='task'>
           <p style={{backgroundColor: props.completed ? "green" : "red"}}>{props.description}</p>
           <p>{new Date(props.deadline).toLocaleString('lookup')}</p>
-          <p>{props.completed}</p>
-          <button onClick={() => props.completeTask(props.id)} className="complete-remove-btn complete-btn">Complete</button>
-          <button onClick={() => props.removeTask(props.id)} className="complete-remove-btn remove-btn">Remove</button>
+          <button onClick={() => props.completeTask(props.id)} className="complete-btn">Complete</button>
+          <button onClick={() => props.removeTask(props.id)} className="remove-btn">Remove</button>
         </div>
       );
 }
