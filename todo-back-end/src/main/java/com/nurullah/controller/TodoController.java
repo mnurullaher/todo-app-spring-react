@@ -9,15 +9,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping()
+@RequestMapping("/todos")
 public class TodoController {
 
     @Autowired
     private TodoService todoService;
 
     @CrossOrigin(origins = "*")
-    @PostMapping("/todos")
+    @PostMapping
     public Todo addTodo(
             @RequestParam String description,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date deadline,
@@ -26,20 +27,17 @@ public class TodoController {
         return todoService.saveTodo(description, deadline, isCompleted);
     }
 
-    @CrossOrigin(origins = "*")
-    @GetMapping("/todos")
+    @GetMapping
     public List<Todo> getAllTodos(){
         return todoService.getAllTodos();
     }
 
-    @CrossOrigin(origins = "*")
-    @PutMapping("/todos")
+    @PutMapping
     public Todo updateTodo(@RequestParam long id) {
         return todoService.updateTodo(id);
     }
 
-    @CrossOrigin(origins = "*")
-    @DeleteMapping("/todos")
+    @DeleteMapping
     public Todo removeTodo(@RequestParam long id) {
         return todoService.removeTodo(id);
     }
