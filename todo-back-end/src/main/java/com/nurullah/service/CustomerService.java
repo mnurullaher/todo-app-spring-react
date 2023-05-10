@@ -19,8 +19,11 @@ public class CustomerService {
                 .username(username)
                 .password(password)
                 .build();
-
         return customerRepository.save(newCustomer);
+    }
+
+    public Customer findByUserName(String username) {
+        return customerRepository.findByUsername(username);
     }
 
 }
