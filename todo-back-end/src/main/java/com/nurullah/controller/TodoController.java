@@ -17,7 +17,6 @@ public class TodoController {
     @Autowired
     private TodoService todoService;
 
-    @CrossOrigin(origins = "*")
     @PostMapping
     public Todo addTodo(
             @RequestParam String description,
