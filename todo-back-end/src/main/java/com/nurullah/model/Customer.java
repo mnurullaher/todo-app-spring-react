@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,8 +25,7 @@ public class Customer {
 
     private String password;
 
-    @OneToMany(mappedBy = "customer")
-    private Set<Todo> todoSet;
-
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Todo> todos;
 
 }

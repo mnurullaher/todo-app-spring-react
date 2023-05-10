@@ -1,34 +1,31 @@
 package com.nurullah.controller;
 
+import com.nurullah.dto.AddTodoRequest;
 import com.nurullah.model.Todo;
 import com.nurullah.service.TodoService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/todos")
+@RequiredArgsConstructor
 public class TodoController {
 
-    @Autowired
-    private TodoService todoService;
+    private final TodoService todoService;
 
     @PostMapping
-    public Todo addTodo(
-            @RequestParam String description,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date deadline,
-            @RequestParam boolean isCompleted
-    ) {
-        return todoService.saveTodo(description, deadline, isCompleted);
+    public Todo addTodo(@RequestBody AddTodoRequest request, Principal principal) {
+        return todoService.saveTodo(request, principal.getName());
     }
 
     @GetMapping
-    public List<Todo> getAllTodos(){
-        return todoService.getAllTodos();
+    public List<Todo> getAllTodos(Principal principal){
+        return todoService.getAllTodos(principal.getName());
     }
 
     @PutMapping

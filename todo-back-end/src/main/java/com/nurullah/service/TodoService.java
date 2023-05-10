@@ -1,35 +1,38 @@
 package com.nurullah.service;
 
+import com.nurullah.dto.AddTodoRequest;
 import com.nurullah.model.Todo;
 import com.nurullah.repository.TodoRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TodoService {
 
-    @Autowired
-    private TodoRepository todoRepository;
+    private final TodoRepository todoRepository;
 
-    public Todo saveTodo(String description, Date deadline, boolean isCompleted) {
+    private final CustomerService customerService;
+
+    public Todo saveTodo(AddTodoRequest request, String username) {
 
         Todo newTodo = Todo.builder()
-                .description(description)
-                .deadline(deadline)
-                .isCompleted(isCompleted)
+                .description(request.getDescription())
+                .deadline(request.getDeadline())
+                .isCompleted(request.isCompleted())
                 .build();
+
+        newTodo.setCustomer(customerService.findByUserName(username));
 
         return todoRepository.save(newTodo);
     }
 
-    public List<Todo> getAllTodos() {
-        List<Todo> todoList = new ArrayList<>();
-        todoRepository.findAll().forEach(todoList::add);
-        return todoList;
+    public List<Todo> getAllTodos(String username) {
+        var customer = customerService.findByUserName(username);
+        return customer.getTodos();
     }
 
     public Todo updateTodo(long id) {

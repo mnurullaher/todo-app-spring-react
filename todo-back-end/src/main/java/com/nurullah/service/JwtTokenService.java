@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,11 +23,12 @@ public class JwtTokenService {
         Map<String, String> claims = new HashMap<>();
         claims.put("username", username);
 
+        var now = Instant.now();
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(username)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date((new Date()).getTime() + 86400000))
+                .setIssuedAt(Date.from(now))
+                .setExpiration(Date.from(now.plus(15, ChronoUnit.MINUTES)))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
