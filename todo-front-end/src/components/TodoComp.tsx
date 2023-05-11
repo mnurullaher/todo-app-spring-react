@@ -1,4 +1,4 @@
-import { Todo } from "../App";
+import { Todo } from "../pages/Todos";
 
 interface TodoProps {
   todo: Todo
