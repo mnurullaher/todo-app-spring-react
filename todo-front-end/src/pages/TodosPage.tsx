@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { TodoComp } from "../components/TodoComp";
 import AuthContext from "../context/AuthContext";
+import { completeTodo, getTodos, removeTodo } from "../client/Todo";
 
 export interface Todo {
     id: number,
@@ -9,47 +10,16 @@ export interface Todo {
     completed: boolean
 }
 
+
 export const TodosPage = () => {
 
     const [todoList, setTodoList] = useState<Todo[]>([])
     let { authToken }: any = useContext(AuthContext);
 
-    const getTodos = async () => {
 
-        await fetch('http://localhost:8080/todos', {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + String(authToken.token)
-            }
-
-        })
-            .then(response => response.json())
-            .then(data => setTodoList(data))
-            .catch(error => console.log(error))
-    }
-
-    const completeTodo = (id: number) => {
-        fetch(`http://localhost:8080/todos?id=${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + String(authToken.token)
-            }
-        })
-    };
-
-    const removeTodo = (id: number) => {
-        fetch(`http://localhost:8080/todos?id=${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + String(authToken.token)
-            }
-        })
-    }
 
     useEffect(() => {
-        getTodos()
+        getTodos(authToken, setTodoList)
     }, [])
 
     return (
@@ -60,8 +30,8 @@ export const TodosPage = () => {
                     return (
                         < TodoComp
                             todo={todo}
-                            completeTodo={completeTodo}
-                            removeTodo={removeTodo}
+                            completeTodo={() => completeTodo(todo.id, authToken)}
+                            removeTodo={() => removeTodo(todo.id, authToken)}
                         />
                     )
                 })
