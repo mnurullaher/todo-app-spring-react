@@ -1,5 +1,6 @@
 package com.nurullah.service;
 
+import com.nurullah.dto.SignupRequest;
 import com.nurullah.model.Customer;
 import com.nurullah.repository.CustomerRepository;
 import com.nurullah.repository.TodoRepository;
@@ -12,12 +13,12 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
 
-    public Customer saveCustomer(String fullName, String username, String password) {
+    public Customer saveCustomer(SignupRequest signupRequest) {
 
         Customer newCustomer = Customer.builder()
-                .fullName(fullName)
-                .username(username)
-                .password(password)
+                .fullName(signupRequest.getFullName())
+                .username(signupRequest.getUsername())
+                .password(signupRequest.getPassword())
                 .build();
         return customerRepository.save(newCustomer);
     }

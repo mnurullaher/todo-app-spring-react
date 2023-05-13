@@ -34,10 +34,6 @@ public class AuthController {
 
     @PostMapping("/signup")
     public Customer signup(@RequestBody SignupRequest signupRequest) {
-        return customerService.saveCustomer(
-                signupRequest.getFullName(),
-                signupRequest.getUsername(),
-                signupRequest.getPassword()
-        );
+        return customerService.saveCustomer(signupRequest);
     }
 }

@@ -28,7 +28,7 @@ public class JwtTokenService {
                 .setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(Date.from(now))
-                .setExpiration(Date.from(now.plus(15, ChronoUnit.MINUTES)))
+                .setExpiration(Date.from(now.plus(15, ChronoUnit.HOURS)))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
