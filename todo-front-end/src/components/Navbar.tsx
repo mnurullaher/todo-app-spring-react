@@ -4,16 +4,20 @@ import AuthContext from "../context/AuthContext";
 
 export const Navbar = () => {
 
-    let {user, logoutUser}: any = useContext(AuthContext);
+    let { user, logoutUser }: any = useContext(AuthContext);
 
     return (
-        <div>
-            <Link to={"/"}> Home </Link>
-            <Link to={"/todos-add"}> Add Todo </Link>
-            <Link to={"/todos"}> Show Todos </Link>
+        <div className="navbar">
             {user ? (
-                <p onClick={logoutUser}>Logout</p>
-            ) : <Link to={"/login"}>Login</Link>}
+                <Link className = "link" to={"/"} onClick={logoutUser}>Logout</Link>
+            ) : <>
+                <Link className = "link" to={"/"}>Home</Link>
+                <Link className = "link" to={"/login"}>Login</Link>
+                <Link className = "link" to={"/signup"}>Signup</Link>
+            </>
+            }
+            <Link className = "link" to={"/todos-add"}> Add Todo </Link>
+            <Link className = "link" to={"/todos"}> Show Todos </Link>
         </div>
     );
 

@@ -10,7 +10,7 @@ export const LoginPage = () => {
             <form onSubmit={loginUser}>
                 <input type="text" name="username" placeholder="Enter Username" />
                 <input type="password" name="password" placeholder="Enter Password" />
-                <input type="submit" />
+                <input className="submit" type="submit" />
             </form>
         </div>
     );

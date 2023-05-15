@@ -7,6 +7,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
+  margin-top: 20px;
 }
 
 input {
@@ -25,7 +26,7 @@ input {
   flex-direction: column;
 }
 
-.save-todo-button {
+.submit {
   width: 50px;
   height: 20px;
   margin-left: 10px;
@@ -63,4 +64,20 @@ p {
   margin-right: 20px;
   border-radius: 7px;
   cursor: pointer;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+
+.link {
+  margin: 20px;
+  color: white;
+}
+
+.link:active {
+  color: red;
 }

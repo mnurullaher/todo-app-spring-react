@@ -12,8 +12,8 @@ export const getTodos = async (authToken: any, setTodoList: Function) => {
         .catch(error => console.log(error))
 }
 
-export const completeTodo = (id: number, authToken: any) => {
-    fetch(`http://localhost:8080/todos?id=${id}`, {
+export const completeTodo = async (id: number, authToken: any) => {
+    await fetch(`http://localhost:8080/todos?id=${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -22,8 +22,8 @@ export const completeTodo = (id: number, authToken: any) => {
     })
 };
 
-export const removeTodo = (id: number, authToken: any) => {
-    fetch(`http://localhost:8080/todos?id=${id}`, {
+export const removeTodo = async (id: number, authToken: any) => {
+    await fetch(`http://localhost:8080/todos?id=${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -32,3 +32,5 @@ export const removeTodo = (id: number, authToken: any) => {
     })
     
 }
+
+

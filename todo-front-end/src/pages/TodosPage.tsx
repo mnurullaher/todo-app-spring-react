@@ -13,7 +13,7 @@ export interface Todo {
 
 export const TodosPage = () => {
 
-    const [todoList, setTodoList] = useState<Todo[]>([])
+    const [todoList, setTodoList] = useState<Todo[]>([]);
     let { authToken }: any = useContext(AuthContext);
 
 
