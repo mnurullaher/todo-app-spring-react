@@ -28,6 +28,7 @@ export const AddTodoPage = () => {
         },
         body: JSON.stringify({'description': description, 'deadline': deadline, 'completed': isCompleted})
     })
+
     navigate('/todos')
 
 }

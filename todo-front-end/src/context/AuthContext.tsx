@@ -14,9 +14,8 @@ export const AuthProvider = ({ children }: any) => {
 
     const navigate = useNavigate();
 
-
     let loginUser = async (e: any) => {
-        e.preventDefault(); 
+        e.preventDefault();
 
         let response = await fetch('http://localhost:8080/auth/login', {
             method: 'POST',
@@ -38,7 +37,6 @@ export const AuthProvider = ({ children }: any) => {
         }
 
     }
-
 
     let logoutUser = () => {
         setAuthToken(null);

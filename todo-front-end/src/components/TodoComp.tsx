@@ -1,10 +1,4 @@
-import { Todo } from "../pages/TodosPage";
-
-interface TodoProps {
-  todo: Todo
-  completeTodo(): void
-  removeTodo(): void
-}
+import { TodoProps } from "../model/Todo";
 
 export const TodoComp = (props: TodoProps) => {
     return (

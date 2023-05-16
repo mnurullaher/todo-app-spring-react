@@ -1,15 +1,22 @@
-export const getTodos = async (authToken: any, setTodoList: Function) => {
+import { Todo } from "../model/Todo";
 
-    await fetch('http://localhost:8080/todos', {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + String(authToken.token)
-        }
+export const getTodos = async (authToken: any): Promise<Todo[]> => {
 
-    })
-        .then(response => response.json())
-        .then(data => setTodoList(data))
-        .catch(error => console.log(error))
+    try {
+        let response = await fetch('http://localhost:8080/todos', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + String(authToken.token)
+            }
+    
+        })
+
+        let data = await response.json();
+        return data;
+    } catch(error) {
+        throw(error);        
+    }   
 }
 
 export const completeTodo = async (id: number, authToken: any) => {

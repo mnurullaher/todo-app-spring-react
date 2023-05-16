@@ -9,8 +9,6 @@ import { PrivateRoutes } from './utils/PrivateRoutes';
 import { AuthProvider } from './context/AuthContext';
 import { SignupPage } from './pages/SignupPage';
 
-
-
 function App() {
 
   return (
@@ -21,7 +19,6 @@ function App() {
           <Navbar />
           <Routes>
             <Route element={<PrivateRoutes />}>
-              
               <Route path='/todos-add' element={<AddTodoPage />} />
               <Route path='/todos' element={<TodosPage />} />
             </Route>
