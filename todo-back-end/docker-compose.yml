@@ -10,7 +10,7 @@ services:
       springboot-mysql-net:
 
   todoapp:
-    image: todoapp
+    image: mnurullaher/todoapp
     ports:
       - "8181:8080"
     environment:
