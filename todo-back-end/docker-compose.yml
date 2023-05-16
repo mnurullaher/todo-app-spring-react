@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_DATABASE: todo_db
+    networks:
+      springboot-mysql-net:
+
+  todoapp:
+    image: todoapp
+    ports:
+      - "8181:8080"
+    environment:
+      DB_PW: toor
+      DB_USERNAME: root
+      DB_URL: jdbc:mysql://mysql:3306/todo_db
+    depends_on:
+      - mysql
+    networks:
+      springboot-mysql-net:
+    restart: on-failure
+
+networks:
+  springboot-mysql-net:
