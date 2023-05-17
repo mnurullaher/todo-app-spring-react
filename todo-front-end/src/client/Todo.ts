@@ -1,9 +1,12 @@
+import { AuthToken } from "../context/AuthContext";
 import { Todo } from "../model/Todo";
 
-export const getTodos = async (authToken: any): Promise<Todo[]> => {
+export const API_URL = "http://localhost:8080";
+
+export const getTodos = async (authToken: AuthToken): Promise<Todo[]> => {    
 
     try {
-        let response = await fetch('http://localhost:8080/todos', {
+        let response = await fetch(`${API_URL}/todos`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -19,8 +22,8 @@ export const getTodos = async (authToken: any): Promise<Todo[]> => {
     }   
 }
 
-export const completeTodo = async (id: number, authToken: any) => {
-    await fetch(`http://localhost:8080/todos?id=${id}`, {
+export const completeTodo = async (id: number, authToken: AuthToken) => {
+    await fetch(`${API_URL}/todos?id=${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -29,8 +32,8 @@ export const completeTodo = async (id: number, authToken: any) => {
     })
 };
 
-export const removeTodo = async (id: number, authToken: any) => {
-    await fetch(`http://localhost:8080/todos?id=${id}`, {
+export const removeTodo = async (id: number, authToken: AuthToken) => {
+    await fetch(`${API_URL}/todos?id=${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -39,5 +42,18 @@ export const removeTodo = async (id: number, authToken: any) => {
     })
     
 }
+
+export const saveTodo = (todo: Todo, authToken: AuthToken) => {
+    fetch(`${API_URL}/todos`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + String(authToken.token)
+        },
+        body: JSON.stringify({'description': todo.description, 'deadline': todo.deadline, 'completed': todo.completed})
+    })
+}
+
+
 
 

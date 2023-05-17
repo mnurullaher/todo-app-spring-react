@@ -1,6 +1,7 @@
 import { ChangeEvent, useContext, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { saveTodo } from "../client/Todo";
 
 export const AddTodoPage = () => {
 
@@ -19,15 +20,9 @@ export const AddTodoPage = () => {
 
   const navigate = useNavigate();
 
-  const saveTodo = () => {
-    fetch(`http://localhost:8080/todos`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + String(authToken.token)
-        },
-        body: JSON.stringify({'description': description, 'deadline': deadline, 'completed': isCompleted})
-    })
+  const addTodo = async() => {
+
+    await saveTodo({description: description, deadline: deadline, completed: isCompleted}, authToken)
 
     navigate('/todos')
 
@@ -47,7 +42,7 @@ export const AddTodoPage = () => {
         <input type="date" onChange={handleDeadline} />
       </div>
 
-      <button className="submit" onClick={() => saveTodo()}>Save</button>
+      <button className="submit" onClick={() => addTodo()}>Save</button>
 
     </div>
 

@@ -1,7 +1,7 @@
 export interface Todo {
-    id: number,
+    id?: number,
     description: string,
-    deadline: Date,
+    deadline: string,
     completed: boolean
 }
 

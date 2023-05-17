@@ -1,6 +1,11 @@
 import { createContext, useState } from "react";
 import jwt_decode from "jwt-decode"
 import { useNavigate } from "react-router-dom"
+import { loginUserReq } from "../client/Auth";
+
+export interface AuthToken {
+    token: string
+}
 
 const AuthContext = createContext({})
 
@@ -9,7 +14,7 @@ export default AuthContext;
 export const AuthProvider = ({ children }: any) => {
 
 
-    let [authToken, setAuthToken] = useState(() => localStorage.getItem('authToken') ? JSON.parse(localStorage.getItem('authToken') || "") : null);
+    let [authToken, setAuthToken] = useState<AuthToken | null>(() => localStorage.getItem('authToken') ? JSON.parse(localStorage.getItem('authToken') || "") : null);
     let [user, setUser] = useState(() => localStorage.getItem('authToken') ? jwt_decode(localStorage.getItem('authToken') || "") : null);
 
     const navigate = useNavigate();
@@ -17,13 +22,7 @@ export const AuthProvider = ({ children }: any) => {
     let loginUser = async (e: any) => {
         e.preventDefault();
 
-        let response = await fetch('http://localhost:8080/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ 'username': e.target.username.value, 'password': e.target.password.value })
-        })
+        let response = await loginUserReq(e);
 
 
         if (response.status === 200) {

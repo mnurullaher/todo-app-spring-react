@@ -1,19 +1,12 @@
 import { useNavigate } from "react-router-dom";
+import { signupUser } from "../client/Auth";
 
 export const SignupPage = () => {
 
     const navigate = useNavigate();
 
-    const signupUser = async (e: any) => {
-        e.preventDefault();
-
-        let response = await fetch(`http://localhost:8080/auth/signup`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ 'fullName': e.target.fullName.value, 'username': e.target.username.value, 'password': e.target.password.value })
-        })
+    const addUser = async (e: any) => {
+        let response = await signupUser(e);
 
         if (response.status === 200) {
             alert("Please login to continue");
@@ -24,11 +17,11 @@ export const SignupPage = () => {
     return (
 
         <div>
-            <form onSubmit={signupUser}>
+            <form onSubmit={addUser}>
                 <input type="text" name="fullName" placeholder="Enter Fullname" />
                 <input type="text" name="username" placeholder="Enter Username" />
                 <input type="password" name="password" placeholder="Enter Password" />
-                <input className="submit" type="submit"/>
+                <input className="submit" type="submit" />
             </form>
         </div>
 

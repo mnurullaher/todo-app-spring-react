@@ -42,8 +42,8 @@ export const TodosPage = () => {
                         < TodoComp
                             key={todo.id}
                             todo={todo}
-                            completeTodo={() => fullfillTodo(todo.id, authToken)}
-                            removeTodo={() => deleteTodo(todo.id, authToken)}
+                            completeTodo={() => fullfillTodo(todo.id!, authToken)}
+                            removeTodo={() => deleteTodo(todo.id!, authToken)}
                         />
                     )
                 })
