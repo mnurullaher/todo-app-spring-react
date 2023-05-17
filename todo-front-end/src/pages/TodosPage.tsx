@@ -4,14 +4,15 @@ import AuthContext from "../context/AuthContext";
 import { completeTodo, getTodos, removeTodo } from "../client/Todo";
 import { Todo } from "../model/Todo";
 import { useLocation } from "react-router-dom";
+import { AddTodoPage } from "../components/AddTodo";
 
 export const TodosPage = () => {
 
     const [todoList, setTodoList] = useState<Todo[]>([]);
-    let { authToken }: any = useContext(AuthContext);
+    let { authToken, logoutUser }: any = useContext(AuthContext);
     const location = useLocation();
 
-    let setTodos = async (token: any) =>  {
+    let setTodos = async (token: any) => {
         setTodoList(await getTodos(token));
     }
 
@@ -35,20 +36,23 @@ export const TodosPage = () => {
 
     return (
 
-        <div className='todos'>
-            {
-                todoList.map((todo: Todo) => {
+        <>
+            <div className='todos'>
+                <h1>Todo List</h1>
+                {todoList.map((todo: Todo) => {
                     return (
-                        < TodoComp
+                        <TodoComp
                             key={todo.id}
                             todo={todo}
                             completeTodo={() => fullfillTodo(todo.id!, authToken)}
-                            removeTodo={() => deleteTodo(todo.id!, authToken)}
-                        />
-                    )
-                })
-            }
-        </div>
+                            removeTodo={() => deleteTodo(todo.id!, authToken)} />
+                    );
+                })}
+                <AddTodoPage />
+            </div>
+            <button onClick={logoutUser} className="logoutBtn">LOGOUT</button>
+        </>
+
 
     );
 

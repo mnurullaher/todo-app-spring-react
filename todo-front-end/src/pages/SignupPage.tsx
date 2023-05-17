@@ -10,18 +10,18 @@ export const SignupPage = () => {
 
         if (response.status === 200) {
             alert("Please login to continue");
-            navigate('/login');
+            navigate('/');
         }
     }
 
     return (
 
-        <div>
-            <form onSubmit={addUser}>
-                <input type="text" name="fullName" placeholder="Enter Fullname" />
-                <input type="text" name="username" placeholder="Enter Username" />
-                <input type="password" name="password" placeholder="Enter Password" />
-                <input className="submit" type="submit" />
+        <div className="formContainer">
+            <form onSubmit={addUser} className="form">
+                <input type="text" name="fullName" placeholder="FULLNAME" className="formInput"/>
+                <input type="text" name="username" placeholder="USERNAME" className="formInput"/>
+                <input type="password" name="password" placeholder="PASSWORD" className="formInput"/>
+                <button className="submitBtn" type="submit"> SIGN UP </button>
             </form>
         </div>
 
