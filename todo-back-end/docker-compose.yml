@@ -9,7 +9,7 @@ services:
     networks:
       springboot-mysql-net:
 
-  todoapp:
+  todo-backend:
     image: mnurullaher/todoapp:1.0
     ports:
       - "8080:8080"
@@ -22,6 +22,11 @@ services:
     networks:
       springboot-mysql-net:
     restart: on-failure
+
+  todo-frontend:
+    image: mnurullaher/todo-frontend:1.0
+    ports:
+      - 3000:80
 
 networks:
   springboot-mysql-net:
