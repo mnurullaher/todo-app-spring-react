@@ -1,7 +1,7 @@
 import { AuthToken } from "../context/AuthContext";
 import { Todo } from "../model/Todo";
 
-export const API_URL = "http://13.49.158.103:8080";
+export const API_URL = "http://16.16.212.206:8080";
 
 export const getTodos = async (authToken: AuthToken): Promise<Todo[]> => {    
 
