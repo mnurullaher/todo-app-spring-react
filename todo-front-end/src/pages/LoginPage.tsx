@@ -9,9 +9,9 @@ export const LoginPage = () => {
     return (
         <div className="formContainer">
             <form onSubmit={loginUser} className="form">
-                <input type="text" name="username" placeholder="USERNAME" className="formInput" />
-                <input type="password" name="password" placeholder="PASSWORD" className="formInput"/>
-                <button className="submitBtn" type="submit"> LOGIN </button>
+                <input type="text" name="username" placeholder="Enter your username..." className="formInput" />
+                <input type="password" name="password" placeholder="Enter your password..." className="formInput"/>
+                <button className="submitBtn" type="submit"> Login </button>
                 <span>Don't have an account..?</span><Link to={"/signup"} id="createAccountBtn">Create an account</Link>
             </form>
             

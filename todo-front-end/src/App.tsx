@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { TodosPage } from './pages/TodosPage';
 import { LoginPage } from './pages/LoginPage';
@@ -9,8 +9,6 @@ import { SignupPage } from './pages/SignupPage';
 function App() {
 
   return (
-    <div className="App">
-
       <Router>
         <AuthProvider>
           <Routes>
@@ -23,8 +21,6 @@ function App() {
           </Routes>
         </AuthProvider>
       </Router>
-
-    </div>
   );
 }
 
