@@ -37,9 +37,9 @@ public class TodoService {
         return customer.getTodos();
     }
 
-    public Todo updateTodo(long id) {
+    public Todo toggleCompletion(long id) {
         var todo = todoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Object not found"));
-        todo.setCompleted(true);
+        todo.setCompleted(!todo.isCompleted());
         return todoRepository.save(todo);
     }
 

@@ -26,9 +26,9 @@ public class TodoController {
         return todoService.getAllTodos(principal.getName());
     }
 
-    @PutMapping
-    public Todo updateTodo(@RequestParam long id) {
-        return todoService.updateTodo(id);
+    @PutMapping("/{id}/toggle-completion")
+    public Todo updateTodo(@PathVariable("id") long id) {
+        return todoService.toggleCompletion(id);
     }
 
     @DeleteMapping

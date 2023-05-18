@@ -13,12 +13,36 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 1200px;
   max-width: calc(100% - 20px);
   margin: 0 auto;
+  flex-direction: column;
+  display: flex;
+}
+
+header {
+  height: 40px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px;
+
+  .logoutBtn {
+    width: 100px;
+    border: none;
+    background-color: $base-color;
+    cursor: pointer;
+    font-size: larger;
+    color: white;
+    border-radius: 5px;
+    font-size: medium;
+  }
+}
+
+.app-container {
+  flex: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .formContainer {
@@ -114,31 +138,8 @@ span {
   margin-top: 15px;
 }
 
-.removeBtn {
-  border-radius: 50%;
-  background-color: white;
-  border: 1px solid black;
-  height: 30px;
-  width: 30px;
-  cursor: pointer;
-}
-
-.removeBtn:active {
-  background-color: red;
-  color: #fff;
-}
-
-.logoutBtn {
-  width: 100px;
-  height: 50px;
-  border-radius: 0px;
-  background-color: red;
-  cursor: pointer;
-  border: none;
-  font-size: larger;
-  color: aliceblue;
-  border-radius: 5px;
-  margin-top: 30px;
+.text-lt {
+  text-decoration: line-through;
 }
 
 .addTask {

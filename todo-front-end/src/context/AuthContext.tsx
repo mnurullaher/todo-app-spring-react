@@ -1,6 +1,5 @@
 import { createContext, useState } from "react";
 import jwt_decode from "jwt-decode"
-import { useNavigate } from "react-router-dom"
 import { loginUserReq } from "../client/Auth";
 
 export interface AuthToken {
@@ -12,25 +11,16 @@ const AuthContext = createContext({})
 export default AuthContext;
 
 export const AuthProvider = ({ children }: any) => {
-
-
     let [authToken, setAuthToken] = useState<AuthToken | null>(() => localStorage.getItem('authToken') ? JSON.parse(localStorage.getItem('authToken') || "") : null);
     let [user, setUser] = useState(() => localStorage.getItem('authToken') ? jwt_decode(localStorage.getItem('authToken') || "") : null);
 
-    const navigate = useNavigate();
-
-    let loginUser = async (e: any) => {
-        e.preventDefault();
-
-        let response = await loginUserReq(e);
-
-
+    let loginUser = async (username: string, password: string) => {
+        let response = await loginUserReq(username, password);
         if (response.status === 200) {
             let data = await response.json();
             setAuthToken(data);
             setUser(jwt_decode(data.token))
             localStorage.setItem('authToken', JSON.stringify(data))
-            navigate('/todos');
         } else {
             alert("Something Went Wrong")
         }
@@ -38,10 +28,10 @@ export const AuthProvider = ({ children }: any) => {
     }
 
     let logoutUser = () => {
+        console.log("logout")
         setAuthToken(null);
         setUser(null);
         localStorage.removeItem('authToken')
-        navigate('/');
     }
 
     let contextData = {

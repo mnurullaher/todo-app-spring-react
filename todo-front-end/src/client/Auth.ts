@@ -12,15 +12,13 @@ export const signupUser = async (e: any) => {
     })
 }
 
-export const loginUserReq = async (e: any) => {
-    e.preventDefault();
-
+export const loginUserReq = async (username: string, password: string) => {
     return await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ 'username': e.target.username.value, 'password': e.target.password.value })
+        body: JSON.stringify({ 'username': username, 'password': password })
     })
 
 }

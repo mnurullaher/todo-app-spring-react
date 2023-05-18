@@ -1,0 +1,21 @@
+$base-color: #6f5fc5;
+
+.create-task-container {
+  display: flex;
+  padding: 30px;
+  gap: 5px;
+
+  input {
+    flex: 2;
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 2px;
+  }
+}
+
+.create-todo-btn {
+  background-color: white;
+  color: $base-color;
+  border: none;
+  cursor: pointer;
+}
