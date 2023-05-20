@@ -1,0 +1,40 @@
+.todo-container {
+  padding: 0 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .is-completed {
+    padding: 5px;
+  }
+
+  div {
+    flex: auto;
+    text-align: center;
+
+    p {
+      padding: 0;
+      margin: 0;
+    }
+
+    span {
+      font-size: 12px;
+      color: #7b6e6e;
+    }
+  }
+}
+
+.removeBtn {
+  border-radius: 50%;
+  background-color: white;
+  border: 1px solid black;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+}
+
+.removeBtn:active {
+  background-color: red;
+  color: #fff;
+}

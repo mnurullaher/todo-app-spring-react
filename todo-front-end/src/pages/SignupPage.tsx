@@ -18,10 +18,10 @@ export const SignupPage = () => {
 
         <div className="formContainer">
             <form onSubmit={addUser} className="form">
-                <input type="text" name="fullName" placeholder="FULLNAME" className="formInput"/>
-                <input type="text" name="username" placeholder="USERNAME" className="formInput"/>
-                <input type="password" name="password" placeholder="PASSWORD" className="formInput"/>
-                <button className="submitBtn" type="submit"> SIGN UP </button>
+                <input type="text" name="fullName" placeholder="Enter your fullname.." className="formInput"/>
+                <input type="text" name="username" placeholder="Enter your username..." className="formInput"/>
+                <input type="password" name="password" placeholder="Enter your password..." className="formInput"/>
+                <button className="submitBtn" type="submit"> Sign Up </button>
             </form>
         </div>
 
