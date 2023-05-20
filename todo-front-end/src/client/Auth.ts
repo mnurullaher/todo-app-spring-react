@@ -1,14 +1,19 @@
 import { API_URL } from "./Todo";
 
-export const signupUser = async (e: any) => {
-    e.preventDefault();
+interface User {
+    fullName: string,
+    username: string,
+    password: string
+}
+
+export const signupUser = async (user: User) => {
 
     return await fetch(`${API_URL}/auth/signup`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 'fullName': e.target.fullName.value, 'username': e.target.username.value, 'password': e.target.password.value })
+        body: JSON.stringify({ 'fullName': user.fullName, 'username': user.username, 'password': user.password })
     })
 }
 

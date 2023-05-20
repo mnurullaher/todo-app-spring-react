@@ -16,15 +16,15 @@ export const LoginPage = () => {
     }
 
     return (
-        <div className="formContainer">
+        <div className="form-container">
             <form onSubmit={login} className="form">
                 <input type="text" name="username" 
                     value={username} onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Enter your username..." className="formInput" />
+                    placeholder="Enter your username..." className="form-input" />
                 <input type="password" name="password"
                     value={password} onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter your password..." className="formInput"/>
-                <button className="submitBtn" type="submit"> Login </button>
+                    placeholder="Enter your password..." className="form-input"/>
+                <button className="submit-btn" type="submit"> Login </button>
                 <span>Don't have an account..?</span><Link to={"/signup"} id="createAccountBtn">Create an account</Link>
             </form>
             

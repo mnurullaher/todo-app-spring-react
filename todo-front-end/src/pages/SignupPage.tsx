@@ -6,7 +6,15 @@ export const SignupPage = () => {
     const navigate = useNavigate();
 
     const addUser = async (e: any) => {
-        let response = await signupUser(e);
+        e.preventDefault();
+
+        let response = await signupUser(
+            {
+                fullName: e.target.fullname.value,
+                username: e.target.username.value,
+                password: e.target.password.value
+            }
+        );
 
         if (response.status === 200) {
             alert("Please login to continue");
@@ -16,12 +24,12 @@ export const SignupPage = () => {
 
     return (
 
-        <div className="formContainer">
+        <div className="form-container">
             <form onSubmit={addUser} className="form">
-                <input type="text" name="fullName" placeholder="Enter your fullname.." className="formInput"/>
-                <input type="text" name="username" placeholder="Enter your username..." className="formInput"/>
-                <input type="password" name="password" placeholder="Enter your password..." className="formInput"/>
-                <button className="submitBtn" type="submit"> Sign Up </button>
+                <input type="text" name="fullname" placeholder="Enter your fullname.." className="form-input" />
+                <input type="text" name="username" placeholder="Enter your username..." className="form-input" />
+                <input type="password" name="password" placeholder="Enter your password..." className="form-input" />
+                <button className="submit-btn" type="submit"> Sign Up </button>
             </form>
         </div>
 

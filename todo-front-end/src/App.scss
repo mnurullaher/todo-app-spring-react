@@ -45,7 +45,7 @@ header {
   align-items: center;
 }
 
-.formContainer {
+.form-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,7 +66,7 @@ header {
   height: 100%;
 }
 
-.formInput {
+.form-input {
   margin-bottom: 10px;
   padding-left: 10px;
   font-size: large;
@@ -74,15 +74,13 @@ header {
   width: 80%;
   border: 1px solid #ddd;
   background-color: white;
-  //border-radius: 5px;
-  // border-color: #ddd;
 
   &::placeholder {
     font-size: small;
   }
 }
 
-.submitBtn {
+.submit-btn {
   width: 75%;
   height: 50px;
   border-radius: 0px;
@@ -105,32 +103,6 @@ span {
   text-decoration: none;
 }
 
-.todos {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  border-radius: 15px;
-  width: 800px;
-}
-
-.taskContainer {
-  display: flex;
-  background-color: white;
-  align-items: center;
-}
-
-.taskUnitContainer {
-  border-bottom: 2px solid lightgray;
-  margin-bottom: 10px;
-}
-
-.todoUnit {
-  display: flex;
-  align-items: center;
-  height: 40px;
-  margin: 0 20px;
-}
-
 .checkBox {
   height: 20px;
   width: 20px;
@@ -141,40 +113,3 @@ span {
 .text-lt {
   text-decoration: line-through;
 }
-
-.addTask {
-  display: flex;
-}
-
-.todoDescription {
-  height: 50px;
-  width: 450px;
-  background-color: white;
-  border-radius: 5px;
-  border-top: 2px solid lightgray;
-  border-bottom: 2px solid lightgray;
-  border-left: none;
-  border-right: none;
-  margin: 15px;
-  padding-left: 20px;
-  font-size: large;
-}
-
-.todoDate {
-  height: 30px;
-  border: 1px solid lightgrey;
-  border-radius: 5px;
-  margin: 15px;
-  margin-top: 25px;
-}
-
-.addItemBtn {
-  height: 30px;
-  margin: 15px;
-  margin-top: 25px;
-  border: none;
-  border-radius: 5px;
-  background-color: lightgreen;
-  cursor: pointer;
-}
-

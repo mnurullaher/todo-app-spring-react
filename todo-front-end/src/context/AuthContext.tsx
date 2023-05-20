@@ -28,7 +28,6 @@ export const AuthProvider = ({ children }: any) => {
     }
 
     let logoutUser = () => {
-        console.log("logout")
         setAuthToken(null);
         setUser(null);
         localStorage.removeItem('authToken')
@@ -42,7 +41,7 @@ export const AuthProvider = ({ children }: any) => {
     }
 
     return (
-        <AuthContext.Provider value={contextData} >
+        <AuthContext.Provider value={contextData}>
             {children}
         </AuthContext.Provider>
     );
