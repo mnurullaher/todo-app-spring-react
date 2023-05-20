@@ -23,7 +23,7 @@ export const getTodos = async (authToken: AuthToken): Promise<Todo[]> => {
 }
 
 export const completeTodo = async (id: number, authToken: AuthToken) => {
-    await fetch(`${API_URL}/todos?id=${id}`, {
+    await fetch(`${API_URL}/todos/${id}/toggle-completion`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -43,8 +43,8 @@ export const removeTodo = async (id: number, authToken: AuthToken) => {
     
 }
 
-export const saveTodo = (todo: Todo, authToken: AuthToken) => {
-    fetch(`${API_URL}/todos`, {
+export const saveTodo = async (todo: Todo, authToken: AuthToken) => {
+    await fetch(`${API_URL}/todos`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
