@@ -3,7 +3,6 @@ package com.nurullah.service;
 import com.nurullah.dto.SignupRequest;
 import com.nurullah.model.Customer;
 import com.nurullah.repository.CustomerRepository;
-import com.nurullah.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
