@@ -32,8 +32,8 @@ public class TodoController {
     }
 
     @DeleteMapping
-    public Todo removeTodo(@RequestParam long id) {
-        return todoService.removeTodo(id);
+    public void removeTodo(@RequestParam long id) {
+        todoService.removeTodo(id);
     }
 
 }

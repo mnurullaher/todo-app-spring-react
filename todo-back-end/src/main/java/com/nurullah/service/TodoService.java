@@ -43,9 +43,8 @@ public class TodoService {
         return todoRepository.save(todo);
     }
 
-    public Todo removeTodo(long id) {
+    public void removeTodo(long id) {
         var todo =  todoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Object not found"));
         todoRepository.delete(todo);
-        return todo;
     }
 }
