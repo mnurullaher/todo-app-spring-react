@@ -5,6 +5,7 @@ import com.nurullah.model.Customer;
 import com.nurullah.repository.CustomerRepository;
 import com.nurullah.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,13 +13,14 @@ import org.springframework.stereotype.Service;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public Customer saveCustomer(SignupRequest signupRequest) {
 
         Customer newCustomer = Customer.builder()
                 .fullName(signupRequest.getFullName())
                 .username(signupRequest.getUsername())
-                .password(signupRequest.getPassword())
+                .password(passwordEncoder.encode(signupRequest.getPassword()))
                 .build();
         return customerRepository.save(newCustomer);
     }
