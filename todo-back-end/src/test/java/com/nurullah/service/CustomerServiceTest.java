@@ -28,7 +28,6 @@ class CustomerServiceTest {
     @InjectMocks
     private CustomerService customerService;
 
-
     @Test
     public void when_saveCustomerWithValidRequest_itShouldReturnCustomer() {
         SignupRequest signupRequest = SignupRequest.builder()
@@ -40,7 +39,7 @@ class CustomerServiceTest {
         given(passwordEncoder.encode("12345")).willReturn("encrypted password");
 
         doAnswer(x -> {
-            var customer =  (Customer) x.getArgument(0);
+            var customer = (Customer) x.getArgument(0);
             customer.setId(1);
             return customer;
         }).when(customerRepository).save(any(Customer.class));
@@ -57,7 +56,6 @@ class CustomerServiceTest {
     @Test
     public void when_findByUsernameWithValidUsername_itShouldReturnCustomer() {
         String username = "nurullaher";
-
         var customer = Customer.builder()
                 .id(1)
                 .fullName("Nurullah ER")

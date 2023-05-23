@@ -4,6 +4,8 @@ import com.nurullah.dto.AddTodoRequest;
 import com.nurullah.model.Customer;
 import com.nurullah.model.Todo;
 import com.nurullah.repository.TodoRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,14 +13,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.assertj.core.api.BDDAssertions.then;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.BDDAssertions.then;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doAnswer;
 
 @ExtendWith(MockitoExtension.class)
@@ -50,7 +52,7 @@ class TodoServiceTest {
                 .build();
 
         doAnswer(x -> {
-            var todo =  (Todo) x.getArgument(0);
+            var todo = (Todo) x.getArgument(0);
             todo.setId(1);
             return todo;
         }).when(todoRepository).save(any(Todo.class));
@@ -68,7 +70,6 @@ class TodoServiceTest {
 
     @Test
     public void test_getAllTodos() {
-
         var username = "nurullaher";
         var customer = Customer.builder()
                 .id(1)
@@ -90,7 +91,6 @@ class TodoServiceTest {
         then(result).isNotNull();
         then(result).hasSize(3);
         then(result).isEqualTo(customer.getTodos());
-
     }
 
     @Test
@@ -118,6 +118,15 @@ class TodoServiceTest {
     }
 
     @Test
+    public void should_throw_exception_if_todo_is_not_found() {
+        long id = 1;
+        given(todoRepository.findById(id)).willThrow(EntityNotFoundException.class);
+
+        assertThrows(EntityNotFoundException.class, () -> todoService.toggleCompletion(id));
+
+    }
+
+    @Test
     public void test_removeTodo() {
         long id = 1;
         Todo todo = Todo.builder()
@@ -132,5 +141,4 @@ class TodoServiceTest {
         todoService.removeTodo(id);
         Mockito.verify(todoRepository).delete(todo);
     }
-
 }

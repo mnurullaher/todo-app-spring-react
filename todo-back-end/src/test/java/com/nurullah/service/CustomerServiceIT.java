@@ -48,12 +48,10 @@ public class CustomerServiceIT {
         then(result.getFullName()).isEqualTo("Nurullah Er");
         then(result.getUsername()).isEqualTo("nurullaher");
         then(result.getId()).isNotEqualTo(0);
-
     }
 
     @Test
     public void test_findByUsername() {
-
         customerRepository.saveAll(
             List.of(
                 new Customer(1, "Nurullah Er", "nurullaher", "12345", List.of()),
@@ -77,7 +75,5 @@ public class CustomerServiceIT {
         then(result1.getId()).isEqualTo(1);
         then(result2.getId()).isEqualTo(2);
         then(result3.getId()).isEqualTo(3);
-
     }
-
 }

@@ -1,18 +1,15 @@
 package com.nurullah.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Data
 public class Customer {
 
     @Id
@@ -26,6 +23,7 @@ public class Customer {
     private String password;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ToString.Exclude
     private List<Todo> todos;
 
 }

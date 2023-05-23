@@ -1,28 +1,27 @@
 package com.nurullah.service;
 
 import com.nurullah.dto.AddTodoRequest;
-import com.nurullah.dto.SignupRequest;
 import com.nurullah.model.Customer;
 import com.nurullah.model.Todo;
 import com.nurullah.repository.CustomerRepository;
 import com.nurullah.repository.TodoRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
-import static org.assertj.core.api.BDDAssertions.then;
-import static org.mockito.Mockito.doCallRealMethod;
-import static org.mockito.Mockito.when;
 
 import java.util.Date;
 import java.util.List;
+
+import static org.assertj.core.api.BDDAssertions.then;
 
 @Testcontainers
 @SpringBootTest
@@ -41,17 +40,21 @@ public class TodoServiceIT {
     @Autowired
     private TodoRepository todoRepository;
     @Autowired
-    private CustomerService customerService;
-    @Autowired
     private CustomerRepository customerRepository;
     @Autowired
     private TodoService todoService;
+
+    @BeforeEach
+    public void setup() {
+        customerRepository.deleteAll();
+        todoRepository.deleteAll();
+    }
 
     @Test
     public void test_saveTodo() {
         var username = "nurullaher";
         customerRepository.save(
-          new Customer(1, "Nurullah Er", username, "12345", List.of())
+                new Customer(1, "Nurullah Er", username, "12345", List.of())
         );
         AddTodoRequest addTodoRequest = AddTodoRequest.builder()
                 .description("new todo")
@@ -70,11 +73,9 @@ public class TodoServiceIT {
     @Test
     public void test_getAllTodos() {
         var username = "username";
-
-    customerRepository.save(
-            new Customer(1, "Nurullah Er", username, "12345", List.of())
-    );
-
+        customerRepository.save(
+                new Customer(1, "Nurullah Er", username, "12345", List.of())
+        );
         AddTodoRequest addTodoRequest = AddTodoRequest.builder()
                 .description("new todo")
                 .deadline(new Date())
@@ -106,14 +107,17 @@ public class TodoServiceIT {
 
     @Test
     public void test_removeTodo() {
-        long id = 1;
+        customerRepository.save(
+                new Customer(1, "Nurullah Er", "nurullaher", "12345", List.of())
+        );
         var todo = todoService.saveTodo(
                 new AddTodoRequest("new todo", new Date(), false),
                 "nurullaher"
         );
 
-        todoService.removeTodo(id);
-        Mockito.verify(todoRepository).delete(todo);
+        then(todoService.getAllTodos("nurullaher")).hasSize(1);
+        todoService.removeTodo(todo.getId());
+        then(todoService.getAllTodos("nurullaher")).hasSize(0);
     }
 
 }
