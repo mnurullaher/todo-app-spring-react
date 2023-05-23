@@ -5,7 +5,6 @@ import com.nurullah.model.Customer;
 import com.nurullah.model.Todo;
 import com.nurullah.repository.TodoRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
