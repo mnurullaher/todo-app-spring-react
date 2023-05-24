@@ -8,7 +8,6 @@ import com.nurullah.repository.TodoRepository;
 import com.nurullah.service.TodoService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -31,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class TodoControllerTest {
     @MockBean
     private TodoService todoService;
-    @Mock
+    @MockBean
     private TodoRepository todoRepository;
     @Autowired
     private MockMvc mockMvc;
