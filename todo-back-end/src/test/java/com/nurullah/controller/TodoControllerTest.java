@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nurullah.dto.AddTodoRequest;
 import com.nurullah.model.Customer;
 import com.nurullah.model.Todo;
-import com.nurullah.repository.TodoRepository;
 import com.nurullah.service.TodoService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -30,8 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class TodoControllerTest {
     @MockBean
     private TodoService todoService;
-    @MockBean
-    private TodoRepository todoRepository;
     @Autowired
     private MockMvc mockMvc;
     ObjectMapper objectMapper = new ObjectMapper();

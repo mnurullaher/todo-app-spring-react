@@ -26,7 +26,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 public class TodoServiceIT {
 
     @Container
-    static MySQLContainer mySQLContainer = new MySQLContainer<>(DockerImageName.parse("mysql:latest"));
+    static MySQLContainer mySQLContainer = new MySQLContainer<>(DockerImageName.parse("mysql:8.0.33"));
 
     @DynamicPropertySource
     private static void setupProperties(DynamicPropertyRegistry registry) {

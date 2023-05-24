@@ -23,7 +23,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 public class CustomerServiceIT {
 
     @Container
-    static MySQLContainer mySQLContainer = new MySQLContainer<>(DockerImageName.parse("mysql:latest"));
+    static MySQLContainer mySQLContainer = new MySQLContainer<>(DockerImageName.parse("mysql:8.0.33"));
 
     @DynamicPropertySource
     private static void setupProperties(DynamicPropertyRegistry registry) {
@@ -53,11 +53,11 @@ public class CustomerServiceIT {
     @Test
     public void test_findByUsername() {
         customerRepository.saveAll(
-            List.of(
-                new Customer(1, "Nurullah Er", "nurullaher", "12345", List.of()),
-                new Customer(2, "Serkan Erip", "serkanerip", "12345", List.of()),
-                new Customer(3, "Bedirhan Catal", "bedircatal", "12345", List.of())
-            )
+                List.of(
+                        new Customer(1, "Nurullah Er", "nurullaher", "12345", List.of()),
+                        new Customer(2, "Serkan Erip", "serkanerip", "12345", List.of()),
+                        new Customer(3, "Bedirhan Catal", "bedircatal", "12345", List.of())
+                )
         );
 
         var result1 = customerService.findByUserName("nurullaher");
