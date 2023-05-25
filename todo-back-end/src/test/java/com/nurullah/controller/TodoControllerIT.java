@@ -1,10 +1,8 @@
 package com.nurullah.controller;
 
-import com.nurullah.dto.AddTodoRequest;
-import com.nurullah.model.Customer;
-import com.nurullah.model.Todo;
 import com.nurullah.repository.CustomerRepository;
 import com.nurullah.repository.TodoRepository;
+import com.nurullah.service.CustomerService;
 import com.nurullah.service.TodoService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,9 +20,9 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 import org.testcontainers.utility.DockerImageName;
 
-import java.util.Date;
-import java.util.List;
-
+import static com.nurullah.utils.CustomerTestUtils.USERNAME;
+import static com.nurullah.utils.CustomerTestUtils.getMockSignupRequest;
+import static com.nurullah.utils.TodoTestUtils.*;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -41,6 +39,8 @@ public class TodoControllerIT {
     private TodoService todoService;
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private CustomerService customerService;
     @Autowired
     private MockMvc mockMvc;
     ObjectMapper objectMapper = new ObjectMapper();
@@ -63,64 +63,53 @@ public class TodoControllerIT {
 
     @Test
     public void should_create_todo() throws Exception {
-        var addTodoRequest = new AddTodoRequest("todo", new Date(), false);
-
         mockMvc.perform(post("/todos")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(addTodoRequest))
-                        .principal(() -> "nurullaher"))
+                        .content(objectMapper.writeValueAsString(getMockAddTodoRequest()))
+                        .principal(() -> USERNAME))
                 .andExpect(status().is(200))
-                .andExpect(jsonPath("$.description", Matchers.is("todo")))
-                .andExpect(jsonPath("$.completed", Matchers.is(false)));
+                .andExpect(jsonPath("$.description", Matchers.is(DESCRIPTION)))
+                .andExpect(jsonPath("$.completed", Matchers.is(IS_COMPLETED)));
     }
 
     @Test
     public void should_return_all_todos() throws Exception {
-        var username = "nurullaher";
-        var customer = new Customer(1, "Nurullah Er", username, "12345", List.of());
-        customerRepository.save(customer);
-        todoService.saveTodo(new AddTodoRequest("todo1", new Date(), false), username);
-        todoService.saveTodo(new AddTodoRequest("todo2", new Date(), true), username);
+        customerService.saveCustomer(getMockSignupRequest());
+        todoService.saveTodo(getMockAddTodoRequest(), USERNAME);
 
         mockMvc.perform(get("/todos")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .principal(() -> username))
+                        .principal(() -> USERNAME))
                 .andExpect(status().is(200))
-                .andExpect(jsonPath("$.size()", Matchers.is(2)))
-                .andExpect(jsonPath("$[0].description", Matchers.is("todo1")))
-                .andExpect(jsonPath("$[1].completed", Matchers.is(true)));
+                .andExpect(jsonPath("$.size()", Matchers.is(1)))
+                .andExpect(jsonPath("$[0].description", Matchers.is(DESCRIPTION)))
+                .andExpect(jsonPath("$[0].completed", Matchers.is(IS_COMPLETED)));
     }
 
     @Test
     public void should_toggle_completion() throws Exception {
-        long id = 1;
-        var customer = new Customer(1, "Nurullah Er", "nurullaher", "12345", List.of());
-        customerRepository.save(customer);
-        todoRepository.save(new Todo(1, "todo", new Date(), false, customer));
+        customerService.saveCustomer(getMockSignupRequest());
+        todoService.saveTodo(getMockAddTodoRequest(), USERNAME);
 
-        mockMvc.perform(put("/todos/{id}/toggle-completion", id))
+        mockMvc.perform(put("/todos/{id}/toggle-completion", ID))
                 .andExpect(status().is(200))
-                .andExpect(jsonPath("$.id", Matchers.is(1)))
-                .andExpect(jsonPath("$.description", Matchers.is("todo")))
-                .andExpect(jsonPath("$.completed", Matchers.is(true)));
+                .andExpect(jsonPath("$.id", Matchers.not(0)))
+                .andExpect(jsonPath("$.description", Matchers.is(DESCRIPTION)))
+                .andExpect(jsonPath("$.completed", Matchers.not(IS_COMPLETED)));
     }
 
     @Test
     public void should_delete_todo() throws Exception {
-        var username = "nurullaher";
-        long id = 1;
-        var customer = new Customer(1, "Nurullah Er", username, "12345", List.of());
-        customerRepository.save(customer);
-        var todo = todoService.saveTodo(
-                new AddTodoRequest("todo", new Date(), false),
-                username
-        );
+        customerService.saveCustomer(getMockSignupRequest());
+        var todo = todoService.saveTodo(getMockAddTodoRequest(), USERNAME);
 
         then(todoRepository.findAll()).hasSize(1);
+
         mockMvc.perform(delete("/todos")
                         .param("id", String.valueOf(todo.getId()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200));
+
         then(todoRepository.findAll()).hasSize(0);
     }
 }

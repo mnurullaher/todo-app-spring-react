@@ -1,7 +1,5 @@
 package com.nurullah.controller;
 
-import com.nurullah.dto.LoginRequest;
-import com.nurullah.dto.SignupRequest;
 import com.nurullah.repository.CustomerRepository;
 import com.nurullah.service.CustomerService;
 import org.hamcrest.Matchers;
@@ -20,6 +18,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 import org.testcontainers.utility.DockerImageName;
 
+import static com.nurullah.utils.CustomerTestUtils.*;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -53,15 +52,10 @@ public class AuthControllerIT {
 
     @Test
     public void should_authenticate_and_return_token() throws Exception {
-        var username = "nurullaher";
-        var password = "12345";
-        var loginRequest = new LoginRequest(username, password);
-        customerService.saveCustomer(
-                new SignupRequest("Nurullah Er", username, password)
-        );
+        customerService.saveCustomer(getMockSignupRequest());
 
         mockMvc.perform(post("/auth/login")
-                        .content(objectMapper.writeValueAsString(loginRequest))
+                        .content(objectMapper.writeValueAsString(getMockLoginRequest()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$", Matchers.hasKey("token")));
@@ -69,18 +63,13 @@ public class AuthControllerIT {
 
     @Test
     public void should_save_and_return_customer() throws Exception {
-        var fullname = "Nurullah Er";
-        var username = "nurullaher";
-        var password = "12345";
-        var signupRequest = new SignupRequest(fullname, username, password);
-
         mockMvc.perform(post("/auth/signup")
-                        .content(objectMapper.writeValueAsString(signupRequest))
+                        .content(objectMapper.writeValueAsString(getMockSignupRequest()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
-                .andExpect(jsonPath("$.fullName", Matchers.is(fullname)))
-                .andExpect(jsonPath("$.username", Matchers.is(username)));
+                .andExpect(jsonPath("$.fullName", Matchers.is(FULLNAME)))
+                .andExpect(jsonPath("$.username", Matchers.is(USERNAME)));
 
-        then(customerService.findByUserName(username)).isNotNull();
+        then(customerService.findByUserName(USERNAME)).isNotNull();
     }
 }

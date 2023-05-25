@@ -1,8 +1,6 @@
 package com.nurullah.service;
 
-import com.nurullah.dto.SignupRequest;
 import com.nurullah.model.Customer;
-import com.nurullah.model.Todo;
 import com.nurullah.repository.CustomerRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,12 +9,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.List;
-
+import static com.nurullah.utils.CustomerTestUtils.*;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class CustomerServiceTest {
@@ -29,14 +27,8 @@ class CustomerServiceTest {
     private CustomerService customerService;
 
     @Test
-    public void when_saveCustomerWithValidRequest_itShouldReturnCustomer() {
-        SignupRequest signupRequest = SignupRequest.builder()
-                .fullName("Nurullah ER")
-                .username("nurullaher")
-                .password("12345")
-                .build();
-
-        given(passwordEncoder.encode("12345")).willReturn("encrypted password");
+    public void should_save_and_return_customer() {
+        given(passwordEncoder.encode(PASSWORD)).willReturn("encrypted password");
 
         doAnswer(x -> {
             var customer = (Customer) x.getArgument(0);
@@ -44,30 +36,22 @@ class CustomerServiceTest {
             return customer;
         }).when(customerRepository).save(any(Customer.class));
 
-        Customer result = customerService.saveCustomer(signupRequest);
+        var result = customerService.saveCustomer(getMockSignupRequest());
 
         then(result).isNotNull();
         then(result.getId()).isEqualTo(1);
-        then(result.getUsername()).isEqualTo("nurullaher");
+        then(result.getUsername()).isEqualTo(USERNAME);
         then(result.getPassword()).isEqualTo("encrypted password");
-        then(result.getFullName()).isEqualTo("Nurullah ER");
+        then(result.getFullName()).isEqualTo(FULLNAME);
     }
 
     @Test
     public void when_findByUsernameWithValidUsername_itShouldReturnCustomer() {
-        String username = "nurullaher";
-        var customer = Customer.builder()
-                .id(1)
-                .fullName("Nurullah ER")
-                .username(username)
-                .password("12345")
-                .todos(List.of(new Todo()))
-                .build();
+        given(customerRepository.findByUsername(USERNAME)).willReturn(getMockCustomer());
 
-        given(customerRepository.findByUsername(username)).willReturn(customer);
+        var result = customerService.findByUserName(USERNAME);
 
-        Customer result = customerService.findByUserName(username);
-
-        then(result).isEqualTo(customer);
+        verify(customerRepository).findByUsername(USERNAME);
+        then(result).isEqualTo(getMockCustomer());
     }
 }

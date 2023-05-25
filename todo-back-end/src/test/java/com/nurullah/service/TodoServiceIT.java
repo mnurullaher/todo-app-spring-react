@@ -1,7 +1,5 @@
 package com.nurullah.service;
 
-import com.nurullah.dto.AddTodoRequest;
-import com.nurullah.model.Customer;
 import com.nurullah.model.Todo;
 import com.nurullah.repository.CustomerRepository;
 import com.nurullah.repository.TodoRepository;
@@ -16,9 +14,8 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import java.util.Date;
-import java.util.List;
-
+import static com.nurullah.utils.CustomerTestUtils.*;
+import static com.nurullah.utils.TodoTestUtils.*;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @Testcontainers
@@ -49,73 +46,48 @@ public class TodoServiceIT {
     }
 
     @Test
-    public void test_saveTodo() {
-        var username = "nurullaher";
-        customerRepository.save(
-                new Customer(1, "Nurullah Er", username, "12345", List.of())
-        );
-        AddTodoRequest addTodoRequest = AddTodoRequest.builder()
-                .description("new todo")
-                .deadline(new Date())
-                .completed(false)
-                .build();
+    public void should_save_and_return_todo() {
+        customerRepository.save(getMockCustomer());
 
-        Todo result = todoService.saveTodo(addTodoRequest, username);
+        Todo result = todoService.saveTodo(getMockAddTodoRequest(), USERNAME);
 
         then(result).isNotNull();
-        then(result.getDescription()).isEqualTo("new todo");
-        then(result.getCustomer().getFullName()).isEqualTo("Nurullah Er");
+        then(result.getDescription()).isEqualTo(DESCRIPTION);
+        then(result.getCustomer().getFullName()).isEqualTo(FULLNAME);
         then(result.getId()).isNotEqualTo(0);
     }
 
     @Test
-    public void test_getAllTodos() {
-        var username = "username";
-        customerRepository.save(
-                new Customer(1, "Nurullah Er", username, "12345", List.of())
-        );
-        AddTodoRequest addTodoRequest = AddTodoRequest.builder()
-                .description("new todo")
-                .deadline(new Date())
-                .completed(false)
-                .build();
+    public void should_return_all_todos() {
+        customerRepository.save(getMockCustomer());
+        todoService.saveTodo(getMockAddTodoRequest(), USERNAME);
 
-        todoService.saveTodo(addTodoRequest, username);
-
-        var result = todoService.getAllTodos(username);
+        var result = todoService.getAllTodos(USERNAME);
 
         then(result).isNotNull();
         then(result).hasSize(1);
-        then(result.get(0).getCustomer().getFullName()).isEqualTo("Nurullah Er");
+        then(result.get(0).getCustomer().getFullName()).isEqualTo(FULLNAME);
     }
 
     @Test
     public void test_toggleCompletion() {
-        var todo = todoService.saveTodo(
-                new AddTodoRequest("new todo", new Date(), false),
-                "nurullaher"
-        );
+        var todo = todoService.saveTodo(getMockAddTodoRequest(), USERNAME);
 
         var result = todoService.toggleCompletion(todo.getId());
 
         then(result).isNotNull();
-        then(result.isCompleted()).isEqualTo(true);
-        then(result.getDescription()).isEqualTo("new todo");
+        then(result.isCompleted()).isNotEqualTo(IS_COMPLETED);
+        then(result.getDescription()).isEqualTo(DESCRIPTION);
     }
 
     @Test
-    public void test_removeTodo() {
-        customerRepository.save(
-                new Customer(1, "Nurullah Er", "nurullaher", "12345", List.of())
-        );
-        var todo = todoService.saveTodo(
-                new AddTodoRequest("new todo", new Date(), false),
-                "nurullaher"
-        );
+    public void should_remove_todo() {
+        customerRepository.save(getMockCustomer());
+        var todo = todoService.saveTodo(getMockAddTodoRequest(), USERNAME);
 
-        then(todoService.getAllTodos("nurullaher")).hasSize(1);
+        then(todoService.getAllTodos(USERNAME)).hasSize(1);
         todoService.removeTodo(todo.getId());
-        then(todoService.getAllTodos("nurullaher")).hasSize(0);
+        then(todoService.getAllTodos(USERNAME)).hasSize(0);
     }
 
 }

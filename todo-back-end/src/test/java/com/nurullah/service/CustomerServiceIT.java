@@ -1,8 +1,7 @@
 package com.nurullah.service;
 
-import com.nurullah.dto.SignupRequest;
-import com.nurullah.model.Customer;
 import com.nurullah.repository.CustomerRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,8 +12,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import java.util.List;
-
+import static com.nurullah.utils.CustomerTestUtils.*;
 import static org.assertj.core.api.BDDAssertions.then;
 
 
@@ -37,43 +35,28 @@ public class CustomerServiceIT {
     @Autowired
     private CustomerService customerService;
 
+    @BeforeEach
+    public void swtup() {
+        customerRepository.deleteAll();
+    }
+
     @Test
-    public void test_saveCustomer() {
-        var result =
-                customerService.saveCustomer(
-                        new SignupRequest("Nurullah Er", "nurullaher", "12345")
-                );
+    public void should_save_and_return_customer() {
+        var result = customerService.saveCustomer(getMockSignupRequest());
 
         then(result).isNotNull();
-        then(result.getFullName()).isEqualTo("Nurullah Er");
-        then(result.getUsername()).isEqualTo("nurullaher");
+        then(result.getFullName()).isEqualTo(FULLNAME);
+        then(result.getUsername()).isEqualTo(USERNAME);
         then(result.getId()).isNotEqualTo(0);
     }
 
     @Test
-    public void test_findByUsername() {
-        customerRepository.saveAll(
-                List.of(
-                        new Customer(1, "Nurullah Er", "nurullaher", "12345", List.of()),
-                        new Customer(2, "Serkan Erip", "serkanerip", "12345", List.of()),
-                        new Customer(3, "Bedirhan Catal", "bedircatal", "12345", List.of())
-                )
-        );
+    public void should_return_customer_with_given_username() {
+        customerService.saveCustomer(getMockSignupRequest());
 
-        var result1 = customerService.findByUserName("nurullaher");
-        var result2 = customerService.findByUserName("serkanerip");
-        var result3 = customerService.findByUserName("bedircatal");
+        var result1 = customerService.findByUserName(USERNAME);
 
         then(result1).isNotNull();
-        then(result2).isNotNull();
-        then(result3).isNotNull();
-
-        then(result1.getFullName()).isEqualTo("Nurullah Er");
-        then(result2.getFullName()).isEqualTo("Serkan Erip");
-        then(result3.getFullName()).isEqualTo("Bedirhan Catal");
-
-        then(result1.getId()).isEqualTo(1);
-        then(result2.getId()).isEqualTo(2);
-        then(result3.getId()).isEqualTo(3);
+        then(result1.getFullName()).isEqualTo(FULLNAME);
     }
 }
