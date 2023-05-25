@@ -3,7 +3,6 @@ package com.nurullah.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +15,11 @@ import java.util.Map;
 @Service
 public class JwtTokenService {
 
-    @Value("${jwt.token.secret}")
-    private String secretKey;
+    private final String secretKey;
+
+    public JwtTokenService(@Value("${jwt.token.secret}") String secretKey) {
+         this.secretKey = secretKey;
+    }
 
     public String createToken(String username) {
         Map<String, String> claims = new HashMap<>();
