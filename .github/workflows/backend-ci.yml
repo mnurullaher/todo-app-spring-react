@@ -14,7 +14,6 @@ on:
     paths: 
       - 'todo-back-end/**'
   pull_request:
-    branches: [ "main" ]
     paths: 
       - 'todo-back-end/**'
 
