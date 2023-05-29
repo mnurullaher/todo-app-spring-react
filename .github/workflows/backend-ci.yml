@@ -32,7 +32,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      working-directory: ./todo-back/end
+      working-directory: todo-back-end
       run: mvn clean install
       
     - name: Build and Push Docker Image
