@@ -38,7 +38,7 @@ jobs:
     - name: Build and Push Docker Image
       uses: mr-smithers-excellent/docker-build-push@v6
       with:
-        directory: todo-back-end
+        dockerfile: todo-back-end/Dockerfile
         image: mnurullaher/todo-backend
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
