@@ -11,8 +11,6 @@ name: Java CI with Maven
 on:
   push:
     tags: 'v*'
-    paths: 
-      - 'todo-back-end/**'
   pull_request:
     paths: 
       - 'todo-back-end/**'

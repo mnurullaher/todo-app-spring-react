@@ -46,7 +46,7 @@ class CustomerServiceTest {
     }
 
     @Test
-    public void when_findByUsernameWithValidUsername_itShouldReturnCustomer() {
+    public void should_return_customer_with_given_username() {
         given(customerRepository.findByUsername(USERNAME)).willReturn(getMockCustomer());
 
         var result = customerService.findByUserName(USERNAME);

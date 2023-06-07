@@ -36,7 +36,7 @@ public class CustomerServiceIT {
     private CustomerService customerService;
 
     @BeforeEach
-    public void swtup() {
+    public void setup() {
         customerRepository.deleteAll();
     }
 
